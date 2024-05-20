@@ -116,13 +116,9 @@
 			<div>
 				<select class="form-control" name="z" id="z">
 					<option value="">any</option>
-					<option value="hand">One Handed</option>
-					<option value="hand x2">Two Handed</option>
-					<option value="accessory">Accessory</option>
-					<option value="ally">Ally</option>
-					<option value="arcane">One Arcane</option>
-					<option value="arcane x2">Two Arcane</option>
-					<option value="body">Body</option>
+					{% for slot in slots %}
+					<option value="{{ slot }}">{{ slot }}</option>
+					{% endfor %}
 				</select>
 			</div>
 		</div>
@@ -185,7 +181,7 @@
 				</div>
 			</div>
     </div>
-    
+
     <div class="col-sm-3">
 			<div class="form-group">
 				<label for="j">{% trans %}Victory{% endtrans %}</label>
@@ -199,7 +195,7 @@
 				</div>
 			</div>
     </div>
-    
+
     <div class="col-sm-3">
 			<div class="form-group">
 				<label for="y">Quantity</label>
@@ -298,7 +294,7 @@
 			</div>
 		</div>
     </div>
-		
+
 </div>
 
 </fieldset>

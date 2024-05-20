@@ -112,6 +112,18 @@ class SearchController extends Controller
 		$traits = array_filter(array_keys($traits));
 		sort($traits);
 
+		$list_slots = $this->getDoctrine()->getRepository('AppBundle:Card')->findSlots();
+
+		$slots = [];
+		foreach($list_slots as $card) {
+			$subs = explode('.', $card["slot"]);
+			foreach($subs as $sub) {
+				$slots[trim($sub)] = 1;
+			}
+		}
+		$slots = array_filter(array_keys($slots));
+		sort($slots);
+
 		$list_illustrators = $dbh->executeQuery("SELECT DISTINCT c.illustrator FROM card c WHERE c.illustrator != '' ORDER BY c.illustrator")->fetchAll();
 		$illustrators = array_map(function ($card) {
 			return $card["illustrator"];
@@ -130,6 +142,7 @@ class SearchController extends Controller
 				"subtypes" => $subtypes,
 				"factions" => $factions,
 				"traits" => $traits,
+				"slots" => $slots,
 				"encounters" => $encounters,
 				"illustrators" => $illustrators,
 				"allsets" => $allsets,

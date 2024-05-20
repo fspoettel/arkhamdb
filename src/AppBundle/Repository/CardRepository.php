@@ -138,6 +138,14 @@ class CardRepository extends TranslatableRepository
 		return $this->getResult($qb);
 	}
 
+	public function findSlots()
+	{
+		$qb = $this->createQueryBuilder('c')
+			->select('DISTINCT c.slot')
+			->andWhere("c.slot != ''");
+		return $this->getResult($qb);
+	}
+
 	public function findInvestigators()
 	{
 		$qb = $this->createQueryBuilder('c')
