@@ -99,8 +99,9 @@ class SearchController extends Controller
 		$factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAllAndOrderByName();
 		$encounters = $this->getDoctrine()->getRepository('AppBundle:Encounter')->findBy([], array("id" => "ASC"));
 
-		$list_traits = $dbh->executeQuery("SELECT DISTINCT c.traits FROM card c WHERE c.traits != ''")->fetchAll();
-		//$list_traits = $dbh->executeQuery("SELECT DISTINCT c.content as traits FROM ext_translations c WHERE c.field = 'traits' and c.content != ''")->fetchAll();
+		// use the repo to get translations
+		$list_traits = $this->getDoctrine()->getRepository('AppBundle:Card')->findTraits();
+
 		$traits = [];
 		foreach($list_traits as $card) {
 			$subs = explode('.', $card["traits"]);
