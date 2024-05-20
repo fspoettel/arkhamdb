@@ -236,7 +236,7 @@ class CardsData
 						foreach ($json_options as $option){
 							$sub_where = [];
 							if (isset($option->faction)){
-								$sub_where[] = " f.code IN ('".implode("','",$option->faction)."')";
+								$sub_where[] = " (f.code IN ('".implode("','",$option->faction)."') OR f2.code IN ('".implode("','",$option->faction)."') OR f3.code IN ('".implode("','",$option->faction)."')) ";
 							}
 							if (isset($option->type)){
 								$sub_where[] = " t.code IN ('".implode("','",$option->type)."')";
