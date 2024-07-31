@@ -523,9 +523,8 @@ class SearchController extends Controller
 
 	public function setnavigation($card, $q, $view, $sort, $encounter)
 	{
-	    $em = $this->getDoctrine();
-	    $prev = $em->getRepository('AppBundle:Card')->findOneBy(array("pack" => $card->getPack(), "position" => $card->getPosition()-1));
-	    $next = $em->getRepository('AppBundle:Card')->findOneBy(array("pack" => $card->getPack(), "position" => $card->getPosition()+1));
+	    $prev = $this->getDoctrine()->getRepository('AppBundle:Card')->findPreviousCard($card);
+	    $next = $this->getDoctrine()->getRepository('AppBundle:Card')->findNextCard($card);
 	    return $this->renderView('AppBundle:Search:setnavigation.html.twig', array(
 	            "prevtitle" => $prev ? ($prev->getName() . ($prev->getSubname() && $prev->getType()->getCode() == "treachery" ? (' (' . $prev->getSubname() . ')') : '')) : "",
 	            "prevhref" => $prev ? $this->get('router')->generate('cards_zoom', array('card_code' => $prev->getCode())) : "",
