@@ -872,7 +872,7 @@ class CardsData
 
     public function get_related($card)
     {
-        $cards = $this->doctrine->getRepository('AppBundle:Card')->findBy(array('realName' => $card->getRealName()), array('position' => 'ASC'));
+        $cards = $this->doctrine->getRepository('AppBundle:Card')->findBy(array('realName' => $card->getRealName(), 'hidden' => false), array('position' => 'ASC'));
 
         $response = $cards;
 
@@ -890,9 +890,9 @@ class CardsData
 					}
 				}
 			}
-			$cards = $this->doctrine->getRepository('AppBundle:Card')->findBy(array('code' => $cardsToFind), array('pack' => 'ASC', 'position' => 'ASC', 'encounter' => 'ASC',));
+			$cards = $this->doctrine->getRepository('AppBundle:Card')->findBy(array('code' => $cardsToFind, 'hidden' => false), array('pack' => 'ASC', 'position' => 'ASC', 'encounter' => 'ASC',));
 
-      return $cards;
+			return $cards;
 		}
 
 
