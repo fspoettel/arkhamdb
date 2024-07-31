@@ -439,6 +439,7 @@ class SearchController extends Controller
 				    $cardinfo['faqs'] = $this->get('cards_data')->get_faqs($card);
 				    //$cardinfo['questions'] = $this->get('cards_data')->get_questions($card);
 				    $cardinfo['related'] = $this->get('cards_data')->get_related($card);
+						$cardinfo['investigator'] = $this->get('cards_data')->get_investigator_cards($card);
 				}
 				$cards[] = $cardinfo;
 			}

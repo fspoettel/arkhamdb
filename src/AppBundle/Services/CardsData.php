@@ -879,6 +879,24 @@ class CardsData
         return $response;
 		}
 
+		public function get_investigator_cards($card)
+    {
+			$cardsToFind = [];
+			$deck_requirements = $this->deckValidationHelper->parseReqString($card->getDeckRequirements());
+			if ($deck_requirements){
+				foreach($deck_requirements['card'] as $card_code){
+					if ($card_code){
+						$cardsToFind = array_merge($cardsToFind, $card_code);
+					}
+				}
+			}
+			$cards = $this->doctrine->getRepository('AppBundle:Card')->findBy(array('code' => $cardsToFind), array('pack' => 'ASC', 'position' => 'ASC', 'encounter' => 'ASC',));
+
+      return $cards;
+		}
+
+
+
 		public function get_bonded($card)
     {
         $cards = $card->getBondedFrom();
