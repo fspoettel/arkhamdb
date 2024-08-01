@@ -232,6 +232,15 @@ class CardsData
 						$where = [];
 						// parse the json options
 						$json_options = json_decode($card->getDeckOptions());
+						foreach ($json_options as $key => $option){
+							// if they have a choice, assume all possible choices
+							if(isset($option->option_select)) {
+								foreach ($option->option_select as $choice){
+									$json_options[] = $choice;
+								}
+								unset($json_options[$key]);
+							}
+						}
 						$nots = [];
 						foreach ($json_options as $option){
 							$sub_where = [];
@@ -716,7 +725,7 @@ class CardsData
 				if (count($dupes) > 0) {
 					$cardinfo['duplicated_by'] = [];
 					foreach($dupes as $duplicate) {
-						$cardinfo['duplicated_by'][] = $duplicate->getCode();
+						$cardinfo['duplicated_by'][] = $duplicate;
 					}
 				}
 			}
@@ -725,7 +734,7 @@ class CardsData
 				if (count($dupes) > 0) {
 					$cardinfo['alternated_by'] = [];
 					foreach($dupes as $duplicate) {
-						$cardinfo['alternated_by'][] = $duplicate->getCode();
+						$cardinfo['alternated_by'][] = $duplicate;
 					}
 				}
 			}
